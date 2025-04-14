@@ -59,7 +59,7 @@ var findCheapestPrice = function (n, flights, src, dst, k) {
             return this.heap.length === 0;
         }
     }
-    let dist = new Array(n).fill().map(() => [Infinity, Infinity]);
+    let dist = new Array(n).fill([Infinity, Infinity]);
     dist[src] = [0,0];
     let adj = {};
     for (let [from,to,cost] of flights) {
@@ -68,13 +68,11 @@ var findCheapestPrice = function (n, flights, src, dst, k) {
     }
     const pq = new MinHeap();
     pq.push([0, src, 0]);
-   // console.log(dist)
     while (!pq.isEmpty()) {
         const [stops, node, nodeCost] = pq.pop();
         if (stops > k) continue;
 
         adj[node]?.forEach((nei) => {
-            //console.log(dist , 'adj', adj, 'node', node, 'nei', nei, 'dist[3')
             const currDist = dist[nei[0]][0];
             if (nodeCost + nei[1] < currDist) {
                 dist[nei[0]] = [nodeCost + nei[1], stops + 1];
