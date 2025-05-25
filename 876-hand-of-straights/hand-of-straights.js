@@ -24,13 +24,13 @@ var isNStraightHand = function(nums, k) {
                 else {
                     lastScanned = n;
                     i++;
-                    console.log('ls', lastScanned)
+                    //console.log('ls', lastScanned)
                 }
             } else {
                 return false;
             }
         };
-        console.log(q)
+        //console.log(q)
         while (q.length) {
             heap.enqueue(q.pop());
         };
