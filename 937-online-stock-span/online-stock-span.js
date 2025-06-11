@@ -1,6 +1,5 @@
-
 var StockSpanner = function() {
-    this.st = [];
+    this.stack = []; // Each element is [price, span]
 };
 
 /** 
@@ -8,18 +7,13 @@ var StockSpanner = function() {
  * @return {number}
  */
 StockSpanner.prototype.next = function(price) {
-    this.st.push(price);
-    let res = 0;
-    for (let i = this.st.length - 1; i >= 0 && this.st[i] <= price; i--) {
-        if(this.st[i] <= price) {
-            res++;
-        }
+    let span = 1;
+    
+    // Pop all elements with price <= current price and add their span
+    while (this.stack.length && this.stack[this.stack.length - 1][0] <= price) {
+        span += this.stack.pop()[1];
     }
-    return res;
-};
 
-/** 
- * Your StockSpanner object will be instantiated and called as such:
- * var obj = new StockSpanner()
- * var param_1 = obj.next(price)
- */
+    this.stack.push([price, span]);
+    return span;
+};
