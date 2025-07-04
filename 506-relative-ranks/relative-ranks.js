@@ -13,22 +13,6 @@ var findRelativeRanks = function (score) {
     for (let i = 0; i < score.length; i++) {
         maxHeap.enqueue([score[i], i]); // [score, original index]
     }
-    const getPosition = () => {
-        const pos = n - maxHeap.size() + 1;
-        switch (pos) {
-            case 1:
-                return "Gold Medal";
-                break;
-            case 2:
-                return "Silver Medal";
-                break;
-            case 3:
-                return "Bronze Medal";
-                break;
-            default:
-                return pos.toString();
-        }
-    }
     let res = [];
     let i = 1;
     while (!maxHeap.isEmpty()) {
