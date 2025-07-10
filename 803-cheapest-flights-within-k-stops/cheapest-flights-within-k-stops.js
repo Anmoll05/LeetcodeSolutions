@@ -59,27 +59,34 @@ var findCheapestPrice = function (n, flights, src, dst, k) {
             return this.heap.length === 0;
         }
     }
-    let dist = new Array(n).fill([Infinity, Infinity]);
-    dist[src] = [0,0];
+    let dist = new Array(n).fill(Infinity);
+    dist[src] = 0;
     let adj = {};
-    for (let [from,to,cost] of flights) {
+    for (let [from, to, cost] of flights) {
         if (!adj[from]) adj[from] = [];
         adj[from].push([to, cost]);
     }
     const pq = new MinHeap();
     pq.push([0, src, 0]);
     while (!pq.isEmpty()) {
-        const [stops, node, nodeCost] = pq.pop();
-        if (stops > k) continue;
+        const [l, edge, currCost] = pq.pop();
+        if (l > k + 1) continue;
+        //console.log("edge", edge, "cost", currCost, "l", l)
 
-        adj[node]?.forEach((nei) => {
-            const currDist = dist[nei[0]][0];
-            if (nodeCost + nei[1] < currDist) {
-                dist[nei[0]] = [nodeCost + nei[1], stops + 1];
-                pq.push([stops + 1, nei[0], nodeCost + nei[1]]);
+        adj[edge]?.forEach((nei) => {
+            //console.log('cc', dist[nei[0]])
+            const currCostToNei = dist[nei[0]];
+            //const currStops = dist[nei[0]][1];
+            //console.log('rectified', currCost + nei[1])
+            if ((currCostToNei > currCost + nei[1])) {
+                //console.log("true for", dist[nei[0]], 'rectified', currCost + nei[1])
+                if (l + 1 <= k + 1) {
+                    dist[nei[0]] = currCost + nei[1];
+                    pq.push([l + 1, nei[0], currCost + nei[1]]);
+                }
             }
-        })
-
+        });
+        //console.log("PQ", pq)
     }
-    return dist[dst][0] == Infinity ? -1 : dist[dst][0];
+    return dist[dst] == Infinity ? -1 : dist[dst];
 };
