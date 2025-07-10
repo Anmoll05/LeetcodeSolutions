@@ -70,7 +70,7 @@ var findCheapestPrice = function (n, flights, src, dst, k) {
     pq.push([0, src, 0]);
     while (!pq.isEmpty()) {
         const [l, edge, currCost] = pq.pop();
-        if (l > k + 1) continue;
+        if (l > k) continue;
         //console.log("edge", edge, "cost", currCost, "l", l)
 
         adj[edge]?.forEach((nei) => {
@@ -80,10 +80,10 @@ var findCheapestPrice = function (n, flights, src, dst, k) {
             //console.log('rectified', currCost + nei[1])
             if ((currCostToNei > currCost + nei[1])) {
                 //console.log("true for", dist[nei[0]], 'rectified', currCost + nei[1])
-                if (l + 1 <= k + 1) {
+                // if (l + 1 <= k + 1) {
                     dist[nei[0]] = currCost + nei[1];
                     pq.push([l + 1, nei[0], currCost + nei[1]]);
-                }
+                // }
             }
         });
         //console.log("PQ", pq)
