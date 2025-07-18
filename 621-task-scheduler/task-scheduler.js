@@ -49,7 +49,7 @@ class MaxHeap {
     }
 }
 
-var leastInterval = function(tasks, n) {
+var leastInterval = function (tasks, n) {
     const map = {};
     for (let task of tasks) {
         map[task] = (map[task] || 0) + 1;
@@ -57,25 +57,29 @@ var leastInterval = function(tasks, n) {
 
     const heap = new MaxHeap();
     Object.values(map).forEach(freq => heap.add(freq));
-
+    //console.log(heap)
     let time = 0;
 
     while (heap.size() > 0) {
-        const temp = [];
+        let temp = [];
         let i = 0;
-
+        //
         while (i <= n) {
-            if (heap.size()) {
-                const count = heap.extract();
-                if (count - 1 > 0) temp.push(count - 1);
+            if (heap.size() > 0) {
+                let node = heap.extract();
+                if (node - 1 > 0) {
+                    temp.push(node - 1);
+                }
+                i++;
+                time++;
+            } else {
+                if (temp.length) time++;
+                i++;
             }
-            time++;
-            i++;
-
-            if (heap.size() === 0 && temp.length === 0) break;
         }
-
-        temp.forEach(freq => heap.add(freq));
+        while (temp.length) {
+            heap.add(temp.pop());
+        }
     }
 
     return time;
