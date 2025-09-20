@@ -14,5 +14,5 @@ var findDuplicate = function(nums) {
         slow = nums[slow];
         fast = nums[fast];
     }
-    return (slow)
+    return slow;
 };
