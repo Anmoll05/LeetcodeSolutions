@@ -1,5 +1,5 @@
- 
- class MinHeap {
+
+class MinHeaps {
     constructor() {
         this.heap = [];
     }
@@ -71,29 +71,27 @@
     }
 }
 
-  var kSmallestPairs = function(nums1, nums2, k) {
+var kSmallestPairs = function (nums1, nums2, k) {
     if (!nums1.length || !nums2.length) return [];
-    const minHeap = new MinHeap({ priority: x => x[0] });
-    const visited = new Set();
-    const res = [];
-
-    minHeap.enqueue([nums1[0] + nums2[0], 0, 0]);
-    visited.add(`0,0`);
-
-    while (res.length < k && !minHeap.isEmpty()) {
-        const [sum, i, j] = minHeap.dequeue().element;
-        res.push([nums1[i], nums2[j]]);
-
-        if (j + 1 < nums2.length && !visited.has(`${i},${j + 1}`)) {
-            minHeap.enqueue([nums1[i] + nums2[j + 1], i, j + 1]);
-            visited.add(`${i},${j + 1}`);
-        }
-
-        if (i + 1 < nums1.length && !visited.has(`${i + 1},${j}`)) {
-            minHeap.enqueue([nums1[i + 1] + nums2[j], i + 1, j]);
-            visited.add(`${i + 1},${j}`);
+    const minHeap = new MinHeaps({ priority: x => x[0] });
+    let res = [];
+    let vis = {};
+    minHeap.enqueue([nums1[0] + nums2[0], [0,0]])
+    while(res.length < k)  {
+        if (!minHeap.isEmpty()) {
+            //console.log(minHeap.dequeue())
+            let [smallestSum, [i,j]] = minHeap.dequeue().element;
+            res.push([nums1[i],nums2[j]]);
+            if (!(`${i+1}|${j}` in vis) && i < nums1.length - 1) {
+                 minHeap.enqueue([nums1[i+1] + nums2[j], [i+1, j]])
+                 vis[`${i+1}|${j}`] = true;
+            }
+            if (!(`${i}|${j+1}` in vis) && j < nums2.length - 1) {
+                 minHeap.enqueue([nums1[i] + nums2[j+1], [i, j+1]]);
+                 vis[`${i}|${j+1}`] = true;
+            }
+           
         }
     }
-
     return res;
 };
