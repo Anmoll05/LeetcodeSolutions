@@ -20,6 +20,7 @@ var reorganizeString = function (str) {
         let i = 0;
         while (i < 1) {
             i++;
+            
             if (!maxHeap.isEmpty()) {
                 let poppedSecond = maxHeap.dequeue();
                 res += poppedSecond;
