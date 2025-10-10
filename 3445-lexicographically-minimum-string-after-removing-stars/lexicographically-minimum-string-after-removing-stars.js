@@ -29,5 +29,5 @@ var clearStars = function (s) {
             res += s[i];
         }
     }
-    return (res)
+    return (res);
 };
