@@ -4,22 +4,22 @@
  * @return {number[]}
  */
 var nextGreaterElement = function(nums1, nums2) {
-    let s = [];
-    let map = {};
+    let nge = new Array(nums2.length).fill(-1);
+    let st = [];
     for (let i = nums2.length - 1; i >= 0; i--) {
-        while(s.length && nums2[s[s.length - 1]] <= nums2[i]) {
-            s.pop();
+        while (st.length && st[st.length - 1] < nums2[i]) {
+            st.pop();
         }
-        if(!s.length) {
-            map[nums2[i]] = -1
-        } else {
-            map[nums2[i]] = nums2[s[s.length - 1]];
-        }
-        s.push(i)
+        nge[i] = st[st.length - 1] || -1;
+        st.push(nums2[i]);
+    }
+    let map = {};
+    for (let i = 0; i < nums2.length; i++) {
+        map[nums2[i]] = i;
     }
     let res = [];
-    nums1.forEach((e) => {
-        res.push(map[e])
-    });
+    for (let i = 0 ; i < nums1.length; i++) {
+        res[i] = nge[map[nums1[i]]];
+    }
     return res;
 };
