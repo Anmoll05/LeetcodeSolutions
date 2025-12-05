@@ -2,25 +2,21 @@
  * @param {number[]} asteroids
  * @return {number[]}
  */
-var asteroidCollision = function(asteroids) {
-    let st = []; // 5, 10, -5
-    for (let i = 0 ; i < asteroids.length; i++) { // 
-       st.push(asteroids[i]);
-        while(st.length > 1 && st[st.length - 1] < 0 && st[st.length - 2] > 0) { // false
-            let top = st.pop();
-            let sTop = st.pop();
-            if (top + sTop == 0) {
-
-            } else if ( top + sTop < 0) {
-                st.push(top);
+var asteroidCollision = function (asteroids) {
+    let st = [];
+    for (let i = 0; i < asteroids.length; i++) {
+        st.push(asteroids[i])
+        while (st.length >= 2 && st[st.length - 1] < 0 && st[st.length - 2] > 0) {
+            let f = st.pop();
+            let s = st.pop();
+            if (Math.abs(f) > s ) {
+                st.push(f);
+            } else  if(Math.abs(f) < s ){
+                st.push(s)
             } else {
-                st.push(sTop);
+
             }
         }
-       
     }
     return st;
 };
-
-// top > 0 && 
-// top < 0
