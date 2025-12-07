@@ -3,31 +3,58 @@
  * @param {number[]} nums2
  * @return {number}
  */
-var findMedianSortedArrays = function(nums1, nums2) {
+var findMedianSortedArrays = function (nums1, nums2) {
     let i = 0;
     let j = 0;
-    let res = [];
+    let k = 0;
+    let ele1 = null;
+    let ele2 = null;
+    let m = nums2.length;
+    let n = nums1.length;
+    //let res = [];
     while (i < nums1.length && j < nums2.length) {
-        if(nums1[i] < nums2[j]) {
-            res.push(nums1[i]);
+        if (nums1[i] < nums2[j]) {
+            if (k == ~~((m + n) / 2)) {
+                ele2 = nums1[i]
+            }
+            if (k == ~~((m + n) / 2) - 1) {
+                ele1 = nums1[i]
+            }
             i++;
         } else {
-            res.push(nums2[j]);
+            if (k == ~~((m + n) / 2)) {
+                ele2 = nums2[j]
+            }
+            if (k == ~~((m + n) / 2) - 1) {
+                ele1 = nums2[j]
+            }
             j++;
         }
+        k++;
     }
-    while(i < nums1.length) {
-        res.push(nums1[i]);
+    while (i < nums1.length) {
+        if (k == ~~((m + n) / 2)) {
+            ele2 = nums1[i]
+        }
+        if (k == ~~((m + n) / 2) - 1) {
+            ele1 = nums1[i]
+        }
+        k++;
         i++;
     }
     while (j < nums2.length) {
-        res.push(nums2[j]);
+        if (k == ~~((m + n) / 2)) {
+            ele2 = nums2[j]
+        }
+        if (k == ~~((m + n) / 2) - 1) {
+            ele1 = nums2[j]
+        }
+        k++;
         j++;
     }
-    let n = res.length;
-    if (res.length % 2 == 0) {
-        return (res[(n/2)] + res[(n/2) - 1])/2;
+    if ((m + n) % 2 == 0) {
+        return (ele1 + ele2)/2.0;
     }
-    return res[~~(n/2)];
+    return ele2;
 
 };
