@@ -5,21 +5,21 @@
  */
 // O(n), O(n)
 var insert = function (intervals, newInterval) {
-  let [newStart, newEnd] = newInterval;
-  let left = []; let right = [];
-
-  for (let i = 0 ; i < intervals.length; i++) {
+  let newStart = newInterval[0]; // 1
+  let newEnd =  newInterval[1]; // 5
+  let left = []; //
+  let right = []; //
+  for (let i = 0; i < intervals.length; i++) { // 1
     let currStart = intervals[i][0]; // 6
     let currEnd = intervals[i][1]; // 9
-    if (currEnd < newStart) { // 1
+   if (newStart > currEnd) {
         left.push(intervals[i]);
-    } else if (newEnd < currStart) { // 5
+    } else if (newEnd < currStart) {
         right.push(intervals[i]);
-    }
-    else {
-        newStart = Math.min(newStart, currStart);
-        newEnd = Math.max(newEnd, currEnd);
+    } else {
+        newStart = Math.min(newStart, currStart); // 1
+        newEnd = Math.max(newEnd, currEnd); // 5
     }
   }
-  return [...left, [newStart, newEnd], ...right];
+  return [...left,[newStart, newEnd], ...right];
 };
