@@ -28,9 +28,7 @@ var distanceK = function (root, target, k) {
     const dfs = (node, prev) => {
         if (!node) return;
         myParent[node.val] = prev;
-        //console.log(node.val)
         if (node.val == target.val) {
-            //console.log(node.val)
             makeResult(node, 0);
             return;
         }
