@@ -38,6 +38,5 @@ var distanceK = function (root, target, k) {
         dfs(node.right, node);
     }
     dfs(root, null);
-    console.log(myParent)
     return res
 };
