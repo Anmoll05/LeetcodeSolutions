@@ -1,34 +1,28 @@
-/**
- * @param {number[]} w
- */
-var Solution = function (w) {
-    this.arr = w;
-    let sum = this.arr.reduce((a, b) => {
-        return a + b
-    }, 0);
-    this.probArr = new Array(w.length);
-    for (let i = 0; i < w.length; i++) {
-        this.probArr[i] = this.arr[i] / sum
+var Solution = function(w) {
+    this.prefix = [];
+    this.total = 0;
+    
+    for (let weight of w) {
+        this.total += weight;
+        this.prefix.push(this.total);
     }
 };
 
-/**
- * @return {number}
- */
-Solution.prototype.pickIndex = function () {
-    const random = Math.random(); // 0 to 1
-    let cumulative = 0;
-
-    for (let i = 0; i < this.probArr.length; i++) {
-        cumulative += this.probArr[i];
-        if (random < cumulative) {
-            return i;
+Solution.prototype.pickIndex = function() {
+    const target = Math.random() * this.total;
+    
+    let left = 0;
+    let right = this.prefix.length - 1;
+    
+    while (left < right) {
+        let mid = Math.floor((left + right) / 2);
+        
+        if (target >= this.prefix[mid]) {
+            left = mid + 1;
+        } else {
+            right = mid;
         }
     }
+    
+    return left;
 };
-
-/** 
- * Your Solution object will be instantiated and called as such:
- * var obj = new Solution(w)
- * var param_1 = obj.pickIndex()
- */
