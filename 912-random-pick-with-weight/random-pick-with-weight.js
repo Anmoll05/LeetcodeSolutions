@@ -24,5 +24,5 @@ Solution.prototype.pickIndex = function() {
         }
     }
     
-    return left;
+    return right;
 };
