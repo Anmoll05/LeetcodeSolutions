@@ -42,7 +42,6 @@ var mostVisitedPattern = function(username, timestamp, website) {
             patternCounter[pattern] = ++patternCounter[pattern] || 1;
         }
     }
-    console.log(patternPerPerson, patternCounter)
 
     const maxOcc = Math.max(...Object.values(patternCounter));
     const patternsWithMaxOcc = [];
