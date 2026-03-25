@@ -13,15 +13,11 @@ var containsCycle = function (grid) {
             if (myParent[pi+"|"+pj] == i+"|"+j) {
                 return false;
             }
-            if (c >= 4) {
+           
                 return true;
-            }
         }
         myParent[i + "|" + j] = pi + "|" + pj;
-       
         vis[i + "|" + j] = true;
-        const ch = grid[i][j];
-
         return dfs(i + 1, j, c + 1, i, j) ||
             dfs(i, j + 1, c + 1, i, j) ||
             dfs(i - 1, j, c, i, j) ||
@@ -40,4 +36,8 @@ var containsCycle = function (grid) {
     }
     return res;
 };
-// 
+//    [["c","a","d"],
+    // ["a","a","a"],
+    // ["a","a","d"],
+    // ["a","c","d"],
+    // ["a","b","c"]]
