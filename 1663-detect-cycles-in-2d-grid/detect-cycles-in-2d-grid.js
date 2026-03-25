@@ -1,0 +1,46 @@
+/**
+ * @param {character[][]} grid
+ * @return {boolean}
+ */
+var containsCycle = function (grid) {
+    let vis = {};
+    let myParent = {};
+    const dfs = (i, j, c, pi, pj) => {
+        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] !== grid[pi][pj]) {
+            return false;
+        }
+        if ((i+"|"+j) in vis) {
+            if (myParent[pi+"|"+pj] == i+"|"+j) {
+                return false;
+            }
+            if (c >= 4) {
+                return true;
+            }
+        }
+        //console.log(i, j)
+        myParent[i + "|" + j] = pi + "|" + pj;
+        if ((i + "|" + j) in vis && c >= 4 && myParent[pi + "|" + pj] !== i + "|" + j) {
+            return true;
+        }
+        vis[i + "|" + j] = true;
+        const ch = grid[i][j];
+
+        return dfs(i + 1, j, c + 1, i, j) ||
+            dfs(i, j + 1, c + 1, i, j) ||
+            dfs(i - 1, j, c, i, j) ||
+            dfs(i, j - 1, c + 1, i, j);
+    };
+    let res = false;
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[0].length; j++) {
+            if (!((i + "|" + j) in vis)) {
+                res = res || dfs(i, j, 1, i, j)
+                if (res) {
+                    return true;
+                }
+            }
+        }
+    }
+    return res;
+};
+// 
