@@ -17,11 +17,8 @@ var containsCycle = function (grid) {
                 return true;
             }
         }
-        //console.log(i, j)
         myParent[i + "|" + j] = pi + "|" + pj;
-        if ((i + "|" + j) in vis && c >= 4 && myParent[pi + "|" + pj] !== i + "|" + j) {
-            return true;
-        }
+       
         vis[i + "|" + j] = true;
         const ch = grid[i][j];
 
