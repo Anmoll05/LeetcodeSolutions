@@ -13,13 +13,17 @@
  */
 var findTarget = function(root, k) {
     let obj = {};
-    const dfs = (node, ind) => {
-        if (!node) return false;
-        obj[node.val] = ind;
-        if ((k - node.val) in obj && ind !== obj[k - node.val]) {
-            return true;
+    let res = false;
+    const dfs = (node) => {
+        if (!node) return;
+        if ((k - node.val) in obj) {
+            res = true;
+            return;
         }
-        return dfs(node.left, (2 * ind + 1)) || dfs(node.right, (2 * ind + 2));
+        obj[node.val] = true;
+        dfs(node.left);
+        dfs(node.right);
     };
-    return dfs(root,0);
+    dfs(root);
+    return res;
 };
