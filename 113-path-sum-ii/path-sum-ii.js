@@ -20,7 +20,7 @@ var pathSum = function(root, targetSum) {
             return;
         }
         dfs(node.left, [...temp, node.val], prevSum + node.val);
-         dfs(node.right, [...temp, node.val], prevSum + node.val);
+        dfs(node.right, [...temp, node.val], prevSum + node.val);
     };
     dfs(root,[], 0);
     return res;
