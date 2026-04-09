@@ -7,8 +7,7 @@ var combine = function(n, k) {
     let res = [];
     const backtrack = (ind,arr) => {
         if (ind > n + 1) return;
-        
-        if(arr.length == k) {
+        if (arr.length == k) {
             res.push(arr);
             return;
         }
