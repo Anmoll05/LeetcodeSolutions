@@ -1,21 +1,24 @@
-/**
- * @param {number[]} fruits
- * @return {number}
- */
 var totalFruit = function (fruits) {
-    if (fruits.length <= 2) return fruits.length;
-    let max = -Infinity;
     let l = 0;
-    let obj = {};
-    for (let r = 0;r < fruits.length; r++) {
-        obj[fruits[r]] = ++obj[fruits[r]] || 1;
-        //console.log("obj", obj, Object.keys(obj).length)
-        while (Object.keys(obj).length > 2) {
-            obj[fruits[l]] = --obj[fruits[l]];
-            if (obj[fruits[l]] < 1) delete obj[fruits[l]];
+    let max = 0;
+    let map = {};
+    let distinct = 0;
+
+    for (let r = 0; r < fruits.length; r++) {
+        if (!map[fruits[r]]) distinct++;
+        map[fruits[r]] = (map[fruits[r]] || 0) + 1;
+
+        while (distinct > 2) {
+            map[fruits[l]]--;
+            if (map[fruits[l]] === 0) {
+                delete map[fruits[l]];
+                distinct--;
+            }
             l++;
         }
-        max = Math.max(r - l + 1, max);
+
+        max = Math.max(max, r - l + 1);
     }
+
     return max;
 };
