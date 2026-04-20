@@ -4,8 +4,6 @@
  * @return {number}
  */
 var maximumEnergy = function(energy, k) {
-    //  [5,2,-10,-5,1]
-    //  [5,7,-3,-8,-7]
     let max = -Infinity;
     let vis = {};
     const dfs = (ind) => {
