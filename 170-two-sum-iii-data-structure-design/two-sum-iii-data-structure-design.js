@@ -10,7 +10,7 @@ var TwoSum = function() {
  */
 TwoSum.prototype.add = function(number) {
     this.arr.push(number);
-    this.obj[number] = ++this.obj[number] || 1;
+    this.obj[number] = this.arr.length - 1;
 };
 
 /** 
@@ -18,12 +18,11 @@ TwoSum.prototype.add = function(number) {
  * @return {boolean}
  */
 TwoSum.prototype.find = function(value) {
-    for (let c of this.arr) {
-        if ((value - c) in this.obj) { // 0 - -1
-            if ((value - c) == c) {
-                if (this.obj[c] > 1) return true;
-                continue;
-            }
+    for (let i = 0; i < this.arr.length; i++) {
+        let e = this.arr[i];
+
+        if ((value - e) in this.obj &&
+            i !== this.obj[value - e]) {
             return true;
         }
     }
