@@ -18,7 +18,6 @@ MyCalendar.prototype.book = function(startTime, endTime) {
         }
     }
     this.list.push([startTime, endTime]);
-    this.list.sort((a,b) => a[0] - b[0]);
     return true;
 };
 
