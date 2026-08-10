@@ -17,7 +17,6 @@ var countUnivalSubtrees = function(root) {
         if(!node) return {val: -1001, is: true};
         let l = dfs(node.left);
         let r = dfs(node.right);
-        console.log(l,r, l.val  == -1001)
         if (l.val == r.val && r.val == -1001) {
             res++;
             return {val: node.val, is: true}
