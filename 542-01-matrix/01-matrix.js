@@ -1,34 +1,48 @@
-var updateMatrix = function(mat) {
-    let rows = mat.length;
-    let cols = mat[0].length;
-    let queue = [];
-    let visited = Array.from({ length: rows }, () => Array(cols).fill(false));
-    
-    // Step 1: Push all 0s into the queue
-    for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-            if (mat[i][j] === 0) {
-                queue.push([i, j]);
-                visited[i][j] = true;
+var updateMatrix = function (mat) {
+    let q = [];
+    let vis = {};
+    let grid = [];
+    for (let i = 0; i < mat.length; i++) {
+        grid[i] = [];
+    }
+    for (let i = 0; i < mat.length; i++) {
+        for (let j = 0; j < mat[0].length; j++) {
+            grid[i][j] = mat[i][j];
+        }
+    }
+    for (let i = 0; i < mat.length; i++) {
+        for (let j = 0; j < mat[0].length; j++) {
+            if (mat[i][j] == 0) {
+                q.push([i, j, 0]);
             }
         }
     }
-    
-    const directions = [[1,0], [-1,0], [0,1], [0,-1]];
-
-    // Step 2: BFS
-    while (queue.length > 0) {
-        let [x, y] = queue.shift();
-        for (let [dx, dy] of directions) {
-            let newX = x + dx;
-            let newY = y + dy;
-            if (newX >= 0 && newY >= 0 && newX < rows && newY < cols && !visited[newX][newY]) {
-                mat[newX][newY] = mat[x][y] + 1;
-                visited[newX][newY] = true;
-                queue.push([newX, newY]);
+    let dirs = [[0, 1], [1, 0], [-1, 0], [0, -1]];
+    while (q.length) {
+        let ele = q.shift();
+        let x = ele[0];
+        let y = ele[1];
+        let l = ele[2];
+        if ((x + "|" + y) in vis) continue;
+        //console.log("av", "lev", l, x, y)
+        if (mat[x][y] == 1) {
+            grid[x][y] = l;
+            vis[x + "|" + y] = true;
+            //console.log("lev", l, x, y)
+        }
+        for (let [nx, ny] of dirs) {
+            let newX = x + nx;
+            let newY = y + ny;
+            if (
+                newX >= 0 &&
+                newX < mat.length &&
+                newY >= 0 &&
+                newY < mat[0].length &&
+                mat[newX][newY] === 1
+            ) {
+                q.push([newX, newY, l + 1]);
             }
         }
     }
-
-    return mat;
+    return grid;
 };
