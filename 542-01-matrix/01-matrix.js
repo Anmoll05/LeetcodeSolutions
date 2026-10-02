@@ -2,14 +2,7 @@ var updateMatrix = function (mat) {
     let q = [];
     let vis = {};
     let grid = [];
-    for (let i = 0; i < mat.length; i++) {
-        grid[i] = [];
-    }
-    for (let i = 0; i < mat.length; i++) {
-        for (let j = 0; j < mat[0].length; j++) {
-            grid[i][j] = mat[i][j];
-        }
-    }
+    
     for (let i = 0; i < mat.length; i++) {
         for (let j = 0; j < mat[0].length; j++) {
             if (mat[i][j] == 0) {
@@ -26,7 +19,7 @@ var updateMatrix = function (mat) {
         if ((x + "|" + y) in vis) continue;
         //console.log("av", "lev", l, x, y)
         if (mat[x][y] == 1) {
-            grid[x][y] = l;
+            mat[x][y] = l;
             vis[x + "|" + y] = true;
             //console.log("lev", l, x, y)
         }
@@ -44,5 +37,5 @@ var updateMatrix = function (mat) {
             }
         }
     }
-    return grid;
+    return mat;
 };
