@@ -71,7 +71,7 @@ var leastInterval = function (tasks, n) {
             const popped = tmp.pop();
             if (popped > 0) heap.add(popped);
             
-        } console.log(t, heap)
+        } 
     }
     return t;
 }
