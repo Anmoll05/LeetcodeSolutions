@@ -1,4 +1,4 @@
-class MaxHeap {
+class MaxHeapi {
     constructor() {
         this.heap = [];
     }
@@ -55,32 +55,23 @@ var leastInterval = function (tasks, n) {
         map[task] = (map[task] || 0) + 1;
     }
 
-    const heap = new MaxHeap();
+    const heap = new MaxHeapi();
     Object.values(map).forEach(freq => heap.add(freq));
-    //console.log(heap)
-    let time = 0;
-
-    while (heap.size() > 0) {
-        let temp = [];
+    let t = 0;
+    while (heap.size()) {
+        let tmp = [];
         let i = 0;
-        //
-        while (i <= n) {
-            if (heap.size() > 0) {
-                let node = heap.extract();
-                if (node - 1 > 0) {
-                    temp.push(node - 1);
-                }
-                i++;
-                time++;
-            } else {
-                if (temp.length) time++;
-                i++;
-            }
+        while (i <= n && (heap.size() || tmp.length)) {
+            const popped = heap.extract() - 1;
+            if (popped  > 0) tmp.push(popped);
+            t++;
+            i++;
         }
-        while (temp.length) {
-            heap.add(temp.pop());
-        }
+        while (tmp.length) {
+            const popped = tmp.pop();
+            if (popped > 0) heap.add(popped);
+            
+        } console.log(t, heap)
     }
-
-    return time;
-};
+    return t;
+}
